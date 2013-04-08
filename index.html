@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Citation Needed</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="website.css">
+    <link rel="apple-touch-icon" href="[cn].png"/>
+
+	<meta name="viewport" 
+        content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+
+
+    <style type="text/css">
+        .content{
+            margin: 0px auto;
+            text-align: center;
+        }
+
+        #statement{
+            width: 80%;
+        }
+
+        #search{
+            width: 80%;
+        }
+
+        .recent img{
+            width:100%;
+            height:auto;
+        }
+
+        .recent{
+            width:60%;
+            height:auto;
+            margin: 0px auto;
+            overflow: hidden;
+            margin-bottom:20px;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+        var autocomplete_results = [];
+        function get_autocomplete(){
+            return autocomplete_results;
+        }
+
+        var spellcheck = function(data){
+            var found = false;
+            var url = '';
+            //console.log(data);
+            var text = data[0];
+            if(text != $('#search').val()){
+                return;
+            }
+            for(var i=0; i < data[1].length; i++){
+                if(text.toLowerCase() == data[1][i].toLowerCase()){
+                    found=true;
+                    url='http://en.wikipedia.org/wiki/' + text;
+                }
+            }
+            autocomplete_results = data[1];
+        }
+        var getjs = function(value){
+            if(!value){
+                value = $("#search").val();
+            }
+            var url='http://en.wikipedia.org/w/api.php?action=opensearch&search='+value+'&format=json&callback=spellcheck';
+            var elem=document.createElement('script');
+            elem.setAttribute('src',url);
+            elem.setAttribute('type','text/javascript');
+            document.getElementsByTagName('head')[0].appendChild(elem);
+        }
+
+        $(document).ready(function(){
+            $("#search").keyup(function(){
+                var $this = $(this);
+                var value = $this.val();
+                getjs(value);
+            });
+
+            // autocomplete items come from get_autocomplete results
+            $("#search").typeahead({source: get_autocomplete});
+
+            $("#find-button").click(function(){
+                var title = $("#search").val();
+                var statement = $("#statement").val();
+                var phone = $("#phone").val();
+                var message = "Just so you know " + statement + " is not true."; 
+                var cite = "";
+                if ($('#cite').is(':checked')) {
+                    cite = "&cite";
+                }
+                             
+                var find_url = "./get_page.php?title=" + title + "&statement=" + statement + cite + "&phone=" + phone + "&message=" + message;
+
+                window.location = find_url;
+            });
+
+        });
+
+    </script>
+</head>
+    <body>
+        <div class="content">
+            <!-- <h2>[Citation Needed]</h2> -->
+            <img src="horizontal.png" width="400">
+            <input type="text" 
+                id="search" 
+                class="typeahead inputbox"
+                placeholder="Page" 
+                autocomplete="off"
+                data-provide="typeahead"
+            />
+            <input class="inputbox" type="text"
+                id="statement"
+                placeholder="Statement you're trying to prove"
+            />
+            <br/>
+            <input type="text"
+                id="phone"
+                placeholder="Friend's phone number"
+            />
+            <label><input type="checkbox" name="checkbox"
+                id="cite"/> Add a fake citation </label>
+
+            <button class="btn btn-large" id="find-button">Find Citation</button>
+        </div>
+
+        <div class="recent-searches">
+            <h3 class="recent-searches">Recently Proven</h2>
+            <div class="recent">
+                <a href="http://stanford.edu/~zgalant/cgi-bin/qed-b-tches/get_page.php?title=Bubonic%20plague&statement=The%20name%20comes%20from%20the%20boob-on-neck%20looking%20lumps%20that%20would%20form%20on%20sufferers%20necks.&phone=&message=Just%20so%20you%20know%20The%20name%20comes%20from%20the%20boob-on-neck%20looking%20lumps%20that%20would%20form%20on%20sufferers%20necks.%20is%20not%20true.">
+                    <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Plague_-buboes.jpg/800px-Plague_-buboes.jpg" />
+                    <p>Bubonic Plague: The name comes from the boob-on-neck looking lumps that would form on sufferers necks.</p>
+                </a>
+            </div>
+            <div class="recent">
+                <a href="http://stanford.edu/~zgalant/cgi-bin/qed-b-tches/get_page.php?title=Hot%20tub&statement=If%20you%20have%20sex%20in%20a%20hot%20tub,%20it%20is%20impossible%20to%20get%20pregnant.&phone=&message=Just%20so%20you%20know%20If%20you%20have%20sex%20in%20a%20hot%20tub,%20it%20is%20impossible%20to%20get%20pregnant.%20is%20not%20true.">
+                    <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Hottubs-Drangsnes.JPG/220px-Hottubs-Drangsnes.JPG" />
+                    <p>Hot tub: If you have sex in a hot tub, it is impossible to get pregnant.</p>
+                </a>
+            </div>
+            <div class="recent">
+                <a href="http://stanford.edu/~zgalant/cgi-bin/qed-b-tches/get_page.php?title=Osama%20bin%20Laden&statement=The%20terrorist%20leader%20was%20nearly%20captured%20in%202007,%20after%20he%20placed%20an%20order%20for%2067%20pairs%20of%20L.L.Bean%20sweatpants%20with%20the%20Al-Queda%20Logo%20on%20the%20hip.&phone=&message=Just%20so%20you%20know%20The%20terrorist%20leader%20was%20nearly%20captured%20in%202007,%20after%20he%20placed%20an%20order%20for%2067%20pairs%20of%20L.L.Bean%20sweatpants%20with%20the%20Al-Queda%20Logo%20on%20the%20hip.%20is%20not%20true.">
+                    <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Osama_bin_Laden_portrait.jpg/220px-Osama_bin_Laden_portrait.jpg" />
+                    <p>Osama bin Laden: The terrorist leader was nearly captured in 2007, after he placed an order for 67 pairs of L.L.Bean sweatpants with the Al-Queda Logo on the hip.</p>
+                </a>
+            </div>
+            <div class="recent">
+                <a href="http://stanford.edu/~zgalant/cgi-bin/qed-b-tches/get_page.php?title=Oprah%20Winfrey&statement=She%20recently%20admitted%20that%20she%20fucked%20Dave%20Chappelle%20and%20afterwards%20yelled%20I'm%20rich%20bitch!&phone=&message=Just%20so%20you%20know%20She%20recently%20admitted%20that%20she%20fucked%20Dave%20Chappelle%20and%20afterwards%20yelled,%20I'm%20rich%20bitch!%20is%20not%20true.">
+                    <img src="http://upload.wikimedia.org/wikipedia/en/thumb/8/83/O_Magazine_cover.jpg/220px-O_Magazine_cover.jpg" />
+                    <p>Oprah Winfrey: She recently admitted that she fucked Dave Chappelle and afterwards yelled, I'm rich bitch!</p>
+                </a>
+            </div>
+            <div class="recent">
+                <a href="http://stanford.edu/~zgalant/cgi-bin/qed-b-tches/get_page.php?title=Moon&statement=The%20moon%20is%20made%20from%20aged,%20stinky%20swiss%20cheese.&phone=&message=Just%20so%20you%20know%20The%20moon%20is%20made%20from%20aged,%20stinky%20swiss%20cheese.%20is%20not%20true.">
+                    <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/280px-FullMoon2010.jpg" />
+                    <p>Moon: The moon is made from aged, stinky swiss cheese.</p>
+                </a>
+            </div>
+        </div>
+    </body>
+</html>
