@@ -1,15 +1,5 @@
 <?php
 
-// Send text if number is provided
-if ($_GET["phone"] != "") {
-	$phone = $_GET["phone"];
-	$message = urlencode($_GET["message"]);
-	$args = "phone=$phone&message=$message";
-	$url = "http://localhost:3000/twilio?$args";
-	
-	exec("curl \"$url\"");
-}
-
 echo "<script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>";
 
 echo "<script src='main.js'></script>";
