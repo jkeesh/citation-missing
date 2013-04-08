@@ -10,7 +10,7 @@
 
 	<meta name="viewport" 
         content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
-
+<meta name="apple-mobile-web-app-capable" content="yes" />
 
     <style type="text/css">
         .content{
@@ -42,6 +42,13 @@
     </style>
 
     <script type="text/javascript">
+            window.addEventListener("load",function() {
+            // Set a timeout...
+            setTimeout(function(){
+                // Hide the address bar!
+                window.scrollTo(0, 1);
+            }, 0);
+        });
 
         var autocomplete_results = [];
         function get_autocomplete(){
@@ -132,12 +139,12 @@
 
         <div class="recent-searches">
             <h3 class="recent-searches">Recently Proven</h2>
-            <div class="recent">
+<!--             <div class="recent">
                 <a href="./get_page.php?title=Bubonic%20plague&statement=The%20name%20comes%20from%20the%20boob-on-neck%20looking%20lumps%20that%20would%20form%20on%20sufferers%20necks.&phone=&message=Just%20so%20you%20know%20The%20name%20comes%20from%20the%20boob-on-neck%20looking%20lumps%20that%20would%20form%20on%20sufferers%20necks.%20is%20not%20true.">
                     <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Plague_-buboes.jpg/800px-Plague_-buboes.jpg" />
                     <p>Bubonic Plague: The name comes from the boob-on-neck looking lumps that would form on sufferers necks.</p>
                 </a>
-            </div>
+            </div> -->
             <div class="recent">
                 <a href="./get_page.php?title=Hot%20tub&statement=If%20you%20have%20sex%20in%20a%20hot%20tub,%20it%20is%20impossible%20to%20get%20pregnant.&phone=&message=Just%20so%20you%20know%20If%20you%20have%20sex%20in%20a%20hot%20tub,%20it%20is%20impossible%20to%20get%20pregnant.%20is%20not%20true.">
                     <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Hottubs-Drangsnes.JPG/220px-Hottubs-Drangsnes.JPG" />
